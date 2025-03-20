@@ -21,8 +21,8 @@ const PaginationLink = (
   const searchParams = useSearchParams()
   
   const pageValue = () => {
-    if (page === "prev") return pagination.previousPage || pagination.currentPage
-    if (page === "next") return pagination.nextPage || pagination.currentPage
+    if (page === "prev") return pagination.previousPage || pagination.page
+    if (page === "next") return pagination.nextPage || pagination.page
     return page || 1
   }
   
