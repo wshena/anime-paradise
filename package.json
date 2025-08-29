@@ -19,7 +19,7 @@
     "date-fns": "^4.1.0",
     "hls.js": "^1.0.3-0.canary.7275",
     "motion": "^12.4.10",
-    "next": "15.2.1",
+    "next": "^15.5.2",
     "next-themes": "^0.4.4",
     "nprogress": "^0.2.0",
     "react": "^19.0.0",
