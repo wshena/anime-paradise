@@ -1,5 +1,4 @@
 import ContentContainer from "@/components/containers/ContentContainer";
-import Image from "next/image";
 
 export default function Home() {
   return (

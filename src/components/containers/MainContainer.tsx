@@ -6,7 +6,7 @@ import { Provider as ReduxProvider } from 'react-redux'
 
 const MainContainer = ({children}:Default_Container) => {
   return (
-    <div className="">
+    <div className="relative">
       <ReduxProvider store={store}>
         {children}
       </ReduxProvider>
