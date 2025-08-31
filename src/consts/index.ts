@@ -11,7 +11,7 @@ export const categoryEpisode = [
 
 export const Days = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
-export const HeaderNavigation = [
+export const HeaderNavigation:LinkProps[] = [
   {
     label:'Popular',
     link: '/anime/popular'
@@ -30,7 +30,7 @@ export const HeaderNavigation = [
   }
 ]
 
-export const FooterNavigation:Footer_Navigation[] = [
+export const FooterNavigation:FooterNavigationProps[] = [
   {
     label: 'Navigation',
     links: [

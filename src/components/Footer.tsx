@@ -12,9 +12,9 @@ const Footer = () => {
       <ContentContainer>
         <div className="flex flex-col gap-5 lg:gap-8 py-3">
           {/* nav links */}
-          <nav aria-label='footer navigation'>
+          <nav aria-label='Footer Navigation'>
             <ul className="flex flex-col md:flex-row items-start md:justify-between gap-5 md:gap-0 lg:justify-normal lg:gap-20">
-              {FooterNavigation?.map((item:Footer_Navigation) => (
+              {FooterNavigation?.map((item:FooterNavigationProps) => (
                 <div key={item.label} className="capitalize">
                   <h3 className="text-md font-semibold mb-5">{item.label}</h3>
                   <ul className="flex flex-col items-start gap-3">

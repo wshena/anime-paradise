@@ -1,13 +1,18 @@
-interface Default_Container {
+interface DefaultContainerProps {
   children: React.ReactNode
 }
 
-interface Icon {
+interface IconProps {
   size: number,
   classname: string
 }
 
-interface Footer_Navigation {
+interface LinkProps {
+  label: string,
+  link: string
+}
+
+interface FooterNavigationProps {
   label:string,
-  links: {label:string, link:string}[]
+  links: LinkProps[]
 }
