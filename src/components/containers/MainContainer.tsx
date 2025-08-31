@@ -1,0 +1,17 @@
+'use client'
+
+import React from 'react'
+import { store } from '@/lib/redux/store'
+import { Provider as ReduxProvider } from 'react-redux'
+
+const MainContainer = ({children}:Default_Container) => {
+  return (
+    <div className="">
+      <ReduxProvider store={store}>
+        {children}
+      </ReduxProvider>
+    </div>
+  )
+}
+
+export default MainContainer
