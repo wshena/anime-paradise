@@ -30,7 +30,7 @@ export const HeaderNavigation = [
   }
 ]
 
-export const FooterNavigation = [
+export const FooterNavigation:Footer_Navigation[] = [
   {
     label: 'Navigation',
     links: [
@@ -53,7 +53,7 @@ export const FooterNavigation = [
     ]
   },
   {
-    label: 'Top Anime',
+    label: 'Top and Popular Collections',
     links: [
       {
         label: 'Top Anime',
@@ -94,6 +94,25 @@ export const FooterNavigation = [
       },
     ]
   }
+]
+
+export const FooterParagraph = [
+  {
+    id: 1,
+    content: 'Anime Paradise is your ultimate anime streaming destination, offering a vast collection of shows and movies at your fingertips. Watch the latest episodes, explore trending series, and enjoy high-quality streaming anytime, anywhere.'
+  },
+  {
+    id: 2,
+    content: "Welcome to Anime Paradise, your ultimate destination for streaming anime and the best in anime entertainment. Whether you’re a lifelong fan or just starting your anime journey, Anime Paradise offers an extensive library of top-tier anime series and anime movies. From action-packed adventures like Naruto and One Piece to fan-favorites such as Demon Slayer, Solo Leveling, and Attack on Titan, we bring the world of anime right to your screen. With thousands of hours of content, you’ll find something for every mood and taste, whether you’re into heart-pounding action, touching romance, or gripping mysteries."
+  },
+  {
+    id: 3,
+    content: "At Anime Paradise, we take pride in being the go-to platform for anime lovers around the world. You can dive into a wide variety of anime genres, including fantasy, slice of life, and sci-fi, ensuring there’s always something new to discover."
+  },
+  {
+    id: 4,
+    content: "Beyond streaming, Anime Paradise is a hub for all things anime. Stay updated with Anime Paradise News, delivering the latest on anime, manga, and pop culture. Join the Anime Paradise community and immerse yourself in a world where anime is more than just a genre—it’s a lifestyle."
+  },
 ]
 
 export const blackClover = {
