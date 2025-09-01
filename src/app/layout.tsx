@@ -4,6 +4,7 @@ import "./globals.css";
 import MainContainer from "@/components/containers/MainContainer";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import ViewAllCollection from "@/components/ViewAllCollection";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,6 +46,7 @@ export default function RootLayout({
         <MainContainer>
           <Navbar />
           {children}
+          <ViewAllCollection />
           <Footer />
         </MainContainer>
         {/* slick carousel */}
