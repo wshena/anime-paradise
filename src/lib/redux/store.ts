@@ -14,10 +14,10 @@ import storage from 'redux-persist/lib/storage';
 // sliices
 import utilityReducer from './slices/utility';
 
-const persistConfig = {
-  key: 'root',
-  storage,
-};
+// const persistConfig = {
+//   key: 'root',
+//   storage,
+// };
 
 // const perisestedAnimeReducer = persistReducer(persistConfig, animeReducer);
 // const persistedFilterReducer = persistReducer(persistConfig, filterReducer);
@@ -36,8 +36,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-    serializableCheck: {
-      // Abaikan pengecekan serializable untuk action-action redux-persist berikut
+    serializableCheck: {      
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
@@ -52,7 +51,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 
-export const persistor = persistStore(store);
+// export const persistor = persistStore(store);
 
 // custom hooks
 export const useAppDispatch = () => useDispatch<AppDispatch>();

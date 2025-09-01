@@ -20,14 +20,14 @@ const IconButton:IconButtonProps[] = [
   },
   {
     id: 'bookmark-button',
-    link: '/search',
+    link: '/list/bookmark',
     icon: <BookMarkIcon size={20} classname='text-white' />
   },
 ]
 
 const Navbar = () => {
   return (
-    <header className='fixed top-0 left-0 w-full bg-navbar-gray text-white'>
+    <header className='fixed z-50 top-0 left-0 w-full bg-navbar-gray text-white'>
       <ContentContainer>
         <div className="flex items-center justify-between">
           {/* left side */}
