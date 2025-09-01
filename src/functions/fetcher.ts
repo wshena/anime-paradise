@@ -19,27 +19,81 @@ const animeRunawayApiUrl = process.env.NEXT_PUBLIC_ANIMERUNAWAY_API;
  * @returns Promise dengan data respon atau null jika terjadi error
  */
 
-export const testNetwork = async () => {
-  const testUrls = [
-    'https://api.jikan.moe/v4',
+// Test basic connectivity
+export const testConnectivity = async () => {
+  const tests = [
     'https://httpbin.org/get',
-    'https://jsonplaceholder.typicode.com/posts/1'
+    'https://jsonplaceholder.typicode.com/posts/1',
+    'https://api.jikan.moe/v4'
   ];
-
-  for (const testUrl of testUrls) {
+  
+  for (const testUrl of tests) {
     try {
-      console.log(`Testing: ${testUrl}`);
-      const start = Date.now();
-      const response = await axios.get(testUrl, { timeout: 10000 });
-      const duration = Date.now() - start;
-      console.log(`✅ Success: ${testUrl} (${duration}ms, status: ${response.status})`);
-    } catch (error: any) {
-      console.error(`❌ Failed: ${testUrl} - ${error.message}`);
-      if (error.code) console.log(`Error code: ${error.code}`);
+      const response = await fetch(testUrl, { 
+        signal: AbortSignal.timeout(5000) 
+      });
+      console.log(`✓ ${testUrl}: ${response.status}`);
+      return true;
+    } catch (error) {
+      console.error(`✗ ${testUrl}:`, error);
     }
+  }
+  return false;
+};
+
+// Simple fetcher without rate limiter
+const simpleFetcher = async (url: string) => {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+  
+  try {
+    const response = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'anime-paradise/1.0',
+        'Accept': 'application/json',
+      }
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    return await response.json();
+  } catch (error) {
+    clearTimeout(timeoutId);
+    
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error('Request timeout after 8 seconds');
+    }
+    throw error;
   }
 };
 
+// Axios fetcher with optimized config
+const axiosFetcher = async (url: string) => {
+  return await axios.get(url, {
+    timeout: 8000,
+    headers: {
+      'User-Agent': 'anime-paradise/1.0',
+      'Accept': 'application/json',
+    },
+    // Axios specific configurations
+    maxRedirects: 5,
+    validateStatus: (status) => status >= 200 && status < 300,
+  }).then(res => res.data);
+};
+
+// Rate limited fetcher
+const rateLimitedFetcher = async (url: string) => {
+  return await limiter.schedule(async () => {
+    return await axiosFetcher(url);
+  });
+};
+
+// Main fetcher with multiple strategies
 const fetcher = async (
   url: string, 
   params: FetcherParams = {}, 
@@ -50,31 +104,51 @@ const fetcher = async (
   const MAX_RETRY = 3;
   let attempt = 0;
 
+  // Construct URL dengan params untuk GET requests
+  let finalUrl = url;
+  if (method === 'get' && params && Object.keys(params).length > 0) {
+    const urlObj = new URL(url);
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        urlObj.searchParams.append(key, String(value));
+      }
+    });
+    finalUrl = urlObj.toString();
+  }
+
+  console.log(`Fetching: ${finalUrl}`);
+
   while (attempt < MAX_RETRY) {
     try {
       return await limiter.schedule(async () => {
-        const response = await axios.request({
+        const axiosConfig: any = {
           method,
-          url,
-          params,
-          data,
+          url: finalUrl,
           headers: {
             "Content-Type": "application/json",
+            "User-Agent": "anime-paradise/1.0",
             ...headers
           },
-          // Konfigurasi timeout yang lebih agresif
-          timeout: 15000, // 15 detik timeout
-          // Retry configuration untuk network issues
-          validateStatus: (status) => status >= 200 && status < 300,
-        });
+          timeout: 12000, // 12 detik timeout
+          validateStatus: (status: number) => status >= 200 && status < 300,
+        };
+
+        // Untuk non-GET requests, gunakan params dan data sesuai kebutuhan
+        if (method !== 'get') {
+          if (data) axiosConfig.data = data;
+          if (params && Object.keys(params).length > 0) {
+            axiosConfig.params = params;
+          }
+        }
+
+        const response = await axios.request(axiosConfig);
         return response.data;
       });
     } catch (error: any) {
       const axiosError = error as AxiosError;
       
-      // Log error untuk debugging
       console.error(`Attempt ${attempt + 1} failed:`, {
-        url,
+        url: finalUrl,
         status: axiosError.response?.status,
         code: axiosError.code,
         message: axiosError.message,
@@ -88,16 +162,17 @@ const fetcher = async (
         attempt++;
       } else if (axiosError.code === 'ETIMEDOUT' || axiosError.code === 'ECONNABORTED') {
         console.warn(`Request timeout. Retrying attempt ${attempt + 1}...`);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        // Increase delay for timeout retries
+        await new Promise((resolve) => setTimeout(resolve, 2000 * (attempt + 1)));
         attempt++;
       } else if (axiosError.code === 'ENOTFOUND' || axiosError.code === 'ECONNREFUSED') {
         console.error('Network connectivity issue:', axiosError.code);
         throw new Error(`Network error: ${axiosError.code}. Please check your internet connection.`);
       } else if (axiosError.response?.status === 404) {
-        throw new Error(`Resource not found (404): ${url}`);
-      } else if (axiosError?.response && axiosError?.response?.status >= 500) {
-        console.warn(`Server error (${axiosError?.response?.status}). Retrying attempt ${attempt + 1}...`);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        throw new Error(`Resource not found (404): ${finalUrl}`);
+      } else if (axiosError.response?.status && axiosError.response.status >= 500) {
+        console.warn(`Server error (${axiosError.response.status}). Retrying attempt ${attempt + 1}...`);
+        await new Promise((resolve) => setTimeout(resolve, 3000));
         attempt++;
       } else {
         console.error('Unexpected fetcher error:', axiosError);
@@ -106,7 +181,11 @@ const fetcher = async (
     }
   }
 
-  throw new Error(`Max retry limit reached for ${url}`);
+  throw new Error(`Max retry limit reached for ${finalUrl}`);
+};
+
+export const testNetwork = async () => {
+  return await testConnectivity();
 };
 
 // API endpoint functions dari jikan api

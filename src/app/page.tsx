@@ -1,3 +1,4 @@
+import AnimeBigBanner from "@/components/AnimeBigBanner";
 import ContentContainer from "@/components/containers/ContentContainer";
 import { GetSeasonsNowList } from "@/functions/fetcher";
 
@@ -6,10 +7,12 @@ export default async function Home() {
   console.log(list)
 
   return (
-    <main className="py-30">
-      <ContentContainer>
+    <main className="">
+      {list ? (
+        <AnimeBigBanner item={list?.data[0]} />
+      ) : (
         <h1 className="text-lg">Hello</h1>
-      </ContentContainer>
+      )}
     </main>
   );
 }

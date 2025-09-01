@@ -59,7 +59,7 @@ const Navbar = () => {
           <ul className="flex items-center gap-0 md:gap-3">
             {IconButton?.map((item:IconButtonProps) => (
               <li key={item.id}>
-                <Link href={item.link} title='search' aria-label={`Navigate to Search Page`} itemProp='url'>
+                <Link href={item.link} title={item.id} aria-label={item.id} itemProp='url'>
                   <ButtonIcon icon={item.icon} classname="cursor-pointer p-4 hover:bg-gray-600 transition-colors duration-300 ease-in-out" />
                 </Link>
               </li>

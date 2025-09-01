@@ -6,7 +6,7 @@ interface Props {
 
 export const H1 = ({text}:Props) => {
   return (
-    <h1 className="text-lg md:text-xl font-semibold capitalize tracking-tight text-white">{text}</h1>
+    <h1 className="text-[1.5rem] md:text-[2rem] font-semibold capitalize tracking-tight text-white">{text}</h1>
   )
 }
 
