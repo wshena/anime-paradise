@@ -1,8 +1,12 @@
-import { FaGithub, FaLinkedinIn, FaRegUser, FaStar, FaPlay } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn, FaRegUser, FaStar, FaPlay, FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa6";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import { AiOutlineMenuFold } from "react-icons/ai";
+
+export const AngleLeftIcon = ({size, classname}:IconProps) => <FaAngleLeft size={size} className={classname} />
+
+export const AngleRightIcon = ({size, classname}:IconProps) => <FaAngleRight size={size} className={classname} />
 
 export const PlayIcon = ({size, classname}:IconProps) => <FaPlay size={size} className={classname} />
 
