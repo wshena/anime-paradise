@@ -17,13 +17,6 @@ interface FooterNavigationProps {
   links: LinkProps[]
 }
 
-interface GenreProps {
-  mal_id: number,
-  type: string,
-  name: string,
-  url: string
-}
-
 interface BigBannerInfoProps {
   id: number,
   title: string,
@@ -31,4 +24,37 @@ interface BigBannerInfoProps {
   image: string,
   rating: string,
   genre: GenreProps[]
+}
+
+interface GenreProps {
+  mal_id: number,
+  type: string,
+  name: string,
+  url: string
+}
+
+interface ThemesProps {
+  mal_id: number,
+  type: string,
+  name: string,
+  url: string
+}
+
+interface Producers {
+  mal_id: number,
+  type: string,
+  name: string,
+  url: string
+}
+
+interface Studios {
+  mal_id: number,
+  type: string,
+  name: string,
+  url: string
+}
+
+interface TitlesProps {
+  type: string,
+  title: string
 }
