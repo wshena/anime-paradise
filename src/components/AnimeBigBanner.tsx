@@ -12,9 +12,9 @@ import { Skeleton } from './ui/skeleton'
 
 const BannerInfo = ({title, image, rating, genre, synopsis, id}:BigBannerInfoProps) => {
   return (
-    <div className="flex flex-col md:flex-row items-start w-full gap-3 md:gap-10 text-white">
+    <div className="flex flex-col md:flex-row items-start w-full xl:w-[1000px] gap-3 md:gap-10 text-white">
       {/* cover image */}
-      <div className="flex items-center justify-center md:items-start md:justify-start">
+      <div className="w-full md:w-fit flex items-center justify-center md:items-start md:justify-start">
         <div className="relative w-[150px] md:w-[200px] h-[200px] md:h-[280px]">
           <Image src={image} alt={title} loading='lazy' fill className='w-full h-full rounded-md' />
         </div>
@@ -81,7 +81,7 @@ const AnimeBigBanner = ({item}:{item:any}) => {
   }
 
   return (
-    <div className="relative w-full h-[600px] bg-repeat bg-contain" style={{
+    <div className="relative w-full h-[700px] md:h-[600px] bg-repeat bg-contain" style={{
       backgroundImage: `url("${coverImage}")`
     }}>
       <div className="absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-start pb-10 py-14 md:py-0">
