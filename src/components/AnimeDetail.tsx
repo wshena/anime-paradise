@@ -14,13 +14,15 @@ const FlexItems = ({data, label}:{data:any, label?:string}) => {
   return (
     <>
       {data?.length > 0 && (
-        <div className='flex flex-col lg:flex-row items-start lg:items-center gap-0 lg:gap-5 flex-wrap'>
+        <div className='flex flex-col lg:flex-row items-start lg:items-center gap-3 lg:gap-5 flex-wrap'>
           {label && <h3 className='text-sm md:text-md font-semibold'>{label}</h3>}
-          <ul className='flex items-center gap-1 md:gap-3 flex-wrap'>
+          <ul className='flex items-center flex-wrap'>
             {data?.map((item:any, index:number) => (
               <li key={item?.mal_id}>
-                <span className='text-sm md:text-md font-light'>{item?.name}</span>
-                {index < data.length - 1 && <span> | </span>}
+                <Link href={item?.url} className='cursor-pointer'>
+                  <span className='text-sm md:text-md text-gray-300 hover:text-white font-light'>{item?.name}</span>
+                </Link>
+                {index < data.length - 1 && <span className='px-2'>|</span>}
               </li>
             ))}
           </ul>
@@ -90,7 +92,7 @@ const AnimeDetail = ({anime, animeId}:{anime:any, animeId:number}) => {
                   {/* button */}
                   <div className="mt-5 flex items-center gap-5">
                     {/* button to episodes section */}
-                    <Link href={'episodes'} aria-label='redirect to episode section' className='cursor-pointer'>
+                    <Link href={'#episodes'} aria-label='redirect to episode section' className='cursor-pointer'>
                       <button className="cursor-pointer flex items-center gap-4 bg-orange-500 py-2 px-4" aria-label='redirect to episode section'>
                         <PlayIcon size={20} classname='text-black' />
                         <span className="text-md font-semibold text-black">Start Watching E1</span>

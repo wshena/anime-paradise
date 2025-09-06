@@ -1,4 +1,5 @@
 import AnimeDetail from '@/components/AnimeDetail';
+import AnimeRecomendations from '@/components/AnimeRecomendations';
 import { GetAnimeCharacter, GetAnimeDetail, GetAnimeFromAnimeAPI, GetAnimePictures, GetAnimeRecomendations, GetAnimeReviews } from '@/functions/fetcher';
 import React from 'react'
 
@@ -17,11 +18,11 @@ const page = async ({params}:{params:any}) => {
   ]);
   
   const animeFromAnimeApi = animeSearchFromAnimeAPi?.animes[0];
-  console.log(anime);
 
   return (
-    <main className=''>
+    <main className='bg-black'>
       <AnimeDetail anime={anime} animeId={anime?.data?.mal_id} />
+      <AnimeRecomendations initialData={animeRecomendations} animeId={id} />
     </main>
   )
 }
