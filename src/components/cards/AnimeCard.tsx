@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from 'react'
-import { useSWRCaching } from '@/lib/swr'
 import { createSlug, truncateTitle } from '@/functions';
 import { Skeleton } from '../ui/skeleton';
 import Link from 'next/link';
