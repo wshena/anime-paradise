@@ -61,6 +61,7 @@ const AnimeRecomendations = ({initialData, animeId}:{initialData:any, animeId:nu
     sliderRef.current?.slickPrev();
   };
 
+  // jika tidak ada recomendasi, maka jangan tampilkan
   if (recommendations.length <= 0) {
     return
   }

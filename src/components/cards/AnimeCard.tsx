@@ -31,7 +31,7 @@ const AnimeCard = ({anime, animeId}:{anime:any, animeId:number}) => {
           href={`/anime/${anime?.mal_id}/${slug}`}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
-          className='flex flex-col items-start gap-2.5 w-fit'
+          className='w-fit flex flex-col items-start gap-2.5 w-fit'
         >
           <Image
             src={imageSrc}

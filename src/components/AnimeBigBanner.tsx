@@ -61,7 +61,7 @@ const BannerInfo = ({title, image, rating, genre, synopsis, id}:BigBannerInfoPro
           </Link>
           
           {/* button to add anime to user wishlist */}
-          <ButtonIcon icon={<BookMarkIcon size={25} classname='text-orange-500' />} classname="cursor-pointer p-2  border-2 border-orange-500" />
+          <ButtonIcon icon={<BookMarkIcon size={25} classname='text-orange-500' />} classname="cursor-pointer p-1  border-2 border-orange-500" />
         </div>
       </div>
     </div>

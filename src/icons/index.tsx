@@ -3,6 +3,9 @@ import { FaInstagram } from "react-icons/fa6";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 import { AiOutlineMenuFold } from "react-icons/ai";
+import { CiCircleList } from "react-icons/ci";
+
+export const ListIcon = ({size, classname}:IconProps) => <CiCircleList size={size} className={classname} />
 
 export const AngleLeftIcon = ({size, classname}:IconProps) => <FaAngleLeft size={size} className={classname} />
 
